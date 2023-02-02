@@ -32,6 +32,8 @@ def watermark():
                         file.write(f"{file_name}\n")
                     marked_img.save(f"{clean_save_route}/{file_name}.bmp")
                     success.config(text=f"Image got watermarked and saved in {save_route}{file_name}.bmp.")
+                elif file_name == "":
+                    success.config(text="Error: You have to provide a file name.")
                 else:
                     success.config(text=f'Error: You have already saved an image with "{file_name}" name.'
                                         f' Try something else.')
