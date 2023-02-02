@@ -17,25 +17,31 @@ def watermark():
             fnt = ImageFont.truetype("arial.ttf", 50)
             # get a drawing context
             d = ImageDraw.Draw(txt)
-
-            # draw text, full opacity
+            # draw text
             d.text((10, width), "©Veluthil", font=fnt, fill=(255, 255, 255, 200))
 
             out = Image.alpha_composite(base, txt)
             out.show()
-            marked_img = out.convert("RGB")
+            marked_img = out.convert("RGBA")
             clean_save_route = save_route.replace('"', '')
-            try:
-                marked_img.save(f"{clean_save_route}/{name_entry.get()}.bmp")
-                success.config(text=f"Image got watermarked and saved in {save_route}{name_entry.get()}.bmp.")
-            except FileNotFoundError:
-                print("No such file")
+            file_name = name_entry.get()
+            with open("data.txt", mode="r") as file:
+                names = file.read()
+                if file_name not in names:
+                    with open("data.txt", mode="a") as file:
+                        file.write(f"{file_name}\n")
+                    marked_img.save(f"{clean_save_route}/{file_name}.bmp")
+                    success.config(text=f"Image got watermarked and saved in {save_route}{file_name}.bmp.")
+                else:
+                    success.config(text=f'Error: You have already saved an image with "{file_name}" name.'
+                                        f' Try something else.')
+
     except FileNotFoundError:
         print("No such file.")
-        output.config(text="No such file.")
+        output.config(text="Error: No such file.")
     except PIL.UnidentifiedImageError:
         print("This is not an image file.")
-        output.config(text="This is not an image file.")
+        output.config(text="Error: This is not an image file.")
 
 
 # ------------ Creating a GUI -------------------
@@ -44,7 +50,7 @@ window.title("Image Watermarking App")
 window.minsize(height=100, width=500)
 window.config(padx=20, pady=20)
 
-label = Label(text="File path:")
+label = Label(text="Insert file path of the image:")
 label.grid(column=0, row=0)
 file_entry = Entry(width=70)
 file_entry.grid(column=1, row=0, columnspan=5)
@@ -58,16 +64,10 @@ name_entry.get()
 
 output = Label(text="")
 output.grid(column=0, row=4)
-#
-# search = Button(text="Search", command=read_image)
-# search.grid(column=0, row=2)
-#
-# search_success = Label()
-# search_success.grid(column=0, row=1)
 
 watermark = Button(text="Add watermark", command=watermark)
 watermark.grid(column=1, row=2)
 success = Label(text="", width=70)
-success.grid(column=1, row=4)
+success.grid(column=1, row=3)
 
 window.mainloop()
