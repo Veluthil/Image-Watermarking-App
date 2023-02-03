@@ -9,14 +9,22 @@ OPACITY = 255
 FONT_SIZE = 50
 UP_DOWN = 0
 LEFT_RIGHT = 0
+HEIGHT = 0
+WIDTH = 0
 
 
 def show_image():
+    global HEIGHT, WIDTH
     if len(file_entry.get()) != 0:
         img = (Image.open(file_entry.get().replace('"', '')))
+        width, height = img.size[0], img.size[1]
         r_img = resize(img)
         panel.configure(image=r_img)
         panel.image = r_img
+        image_size.config(text=f"Image size {height}/{width} (height/width)", bg="#000000", fg="#fafafa",
+                           font=("Arial", 8))
+        up_down.config(from_=0, to=height)
+        left_right.config(from_=0, to=width)
     else:
         tkinter.messagebox.showerror("Error", "You have to provide a file path to continue.")
 
@@ -36,13 +44,13 @@ def create_watermark():
         with Image.open(file_entry.get().replace('"', '')).convert("RGBA") as base:
             # make a blank image for the text, initialized to transparent text color
             txt = Image.new("RGBA", base.size, (255, 255, 255, 0))
-            height, width = base.size[0], base.size[1] - 100
+
             # get a font
             fnt = ImageFont.truetype("arial.ttf", FONT_SIZE)
             # get a drawing context
             d = ImageDraw.Draw(txt)
             # draw text
-            d.text((10, width), f"{wmark_entry.get()}", font=fnt, fill=(255, 255, 255, OPACITY))
+            d.text((LEFT_RIGHT, UP_DOWN), f"{wmark_entry.get()}", font=fnt, fill=(255, 255, 255, OPACITY))
 
             out = Image.alpha_composite(base, txt)
             marked_img = out.convert("RGBA")
@@ -67,12 +75,12 @@ def font_size():
     FONT_SIZE = int(font_size.get())
 
 
-def up_down(value):
+def set_up_down(value):
     global UP_DOWN
     UP_DOWN = int(value)
 
 
-def left_right(value):
+def set_left_right(value):
     global LEFT_RIGHT
     LEFT_RIGHT = int(value)
 
@@ -109,6 +117,9 @@ panel = Label(window, image=image1)
 panel.image = image1 #keep a reference
 panel.grid(column=0, rowspan=10)
 
+image_size = Label(text=f"Image size {HEIGHT}/{WIDTH} (height/width)", bg="#000000", fg="#fafafa", font=("Arial", 8))
+image_size.grid(column=0, row=12)
+
 label = Label(text="Image full file path:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 label.grid(column=1, row=0)
 file_entry = Entry(width=60)
@@ -139,24 +150,24 @@ font_size.grid(column=2, row=4)
 
 up_down_label = Label(text="Up/Down", bg="#000000", fg="#fafafa", font=("Arial", 8))
 up_down_label.grid(column=3, row=3)
-up_down = Scale(window, from_=0, to=255, bg="#000000", fg="#fafafa", command=up_down)
+up_down = Scale(window, from_=0, to=1000, bg="#000000", fg="#fafafa", command=set_up_down)
 up_down.grid(column=3, row=4)
 
 left_right_label = Label(text="Left/Right", bg="#000000", fg="#fafafa", font=("Arial", 8))
 left_right_label.grid(column=4, row=3)
-left_right = Scale(window, from_=0, to=255, orient="horizontal", bg="#000000", fg="#fafafa", command=left_right)
+left_right = Scale(window, from_=0, to=1000, orient="horizontal", bg="#000000", fg="#fafafa", command=set_left_right)
 left_right.grid(column=4, row=4)
 
 show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=create_watermark)
 show_wm.grid(column=7, row=2)
 
-name = Label(text="Watermarked image file name:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+name = Label(text="New img file name:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 name.grid(column=1, row=6)
-name_entry = Entry(width=40)
+name_entry = Entry(width=60)
 name_entry.grid(column=2, row=6, columnspan=3)
 name_entry.get()
 
 save_img = Button(text="Save", bg="#000000", fg="#fafafa", command=lambda: save(IMG))
-save_img.grid(column=6, row=6)
+save_img.grid(column=7, row=6)
 
 window.mainloop()
