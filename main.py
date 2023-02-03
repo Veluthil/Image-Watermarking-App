@@ -6,6 +6,19 @@ from PIL import Image, ImageDraw, ImageFont, ImageTk
 save_route = "D:/Photos/WatermarkApp/"
 
 
+def show_image():
+    img = (Image.open(file_entry.get().replace('"', '')))
+    size = img.size
+    f_size = (700, 600)
+    factor = min(float(f_size[1]) / size[1], float(f_size[0]) / size[0])
+    width = int(size[0] * factor)
+    height = int(size[1] * factor)
+    r_img = img.resize((width, height), Image.LANCZOS)
+    r_img = ImageTk.PhotoImage(r_img)
+    panel.configure(image=r_img)
+    panel.image = r_img
+
+
 def watermark():
     if len(file_entry.get()) != 0:
         image = file_entry.get().replace('"', '')
@@ -29,6 +42,9 @@ def watermark():
                 with open("data.txt", mode="r") as file:
                     names = file.read()
                     if file_name not in names:
+                        # w_img = ImageTk.PhotoImage(marked_img)
+                        # panel.configure(image=w_img)
+                        # panel.image = w_img
                         out.show()
                         answer = tkinter.messagebox.askyesno("Procced", "Do you want to save?")
                         if answer:
@@ -57,27 +73,36 @@ def watermark():
 window = Tk()
 window.title("Image Watermarking App")
 window.minsize(height=100, width=500)
-window.config(padx=20, pady=20, bg="#331129")
+window.config(padx=20, pady=20, bg="#000000")
 
-label = Label(text="Image full file path:", bg="#331129", fg="#fafafa", font=("Arial", 12, "bold"))
-label.grid(column=0, row=0)
-file_entry = Entry(width=90)
-file_entry.grid(column=1, row=0, columnspan=5)
+blank_photo = Image.new(mode="RGBA", size=(700, 600), color="#696969")
+image1 = ImageTk.PhotoImage(blank_photo)
+panel = Label(window, image=image1)
+panel.image = image1 #keep a reference
+panel.grid(column=0, rowspan=10)
+
+label = Label(text="Image full file path:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+label.grid(column=1, row=0)
+file_entry = Entry(width=70)
+file_entry.grid(column=2, row=0, columnspan=5)
 file_entry.get()
 
-wmark = Label(text="Watermark text:", bg="#331129", fg="#fafafa", font=("Arial", 12, "bold"))
-wmark.grid(column=0, row=1)
-wmark_entry = Entry(width=90)
-wmark_entry.grid(column=1, row=1, columnspan=5)
+wmark = Label(text="Watermark text:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+wmark.grid(column=1, row=2)
+wmark_entry = Entry(width=70)
+wmark_entry.grid(column=2, row=2, columnspan=5)
 wmark_entry.get()
 
-name = Label(text="Watermarked image file name:", bg="#331129", fg="#fafafa", font=("Arial", 12, "bold"))
-name.grid(column=0, row=2)
-name_entry = Entry(width=90)
-name_entry.grid(column=1, row=2, columnspan=5)
+name = Label(text="Watermarked image file name:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+name.grid(column=1, row=3)
+name_entry = Entry(width=70)
+name_entry.grid(column=2, row=3, columnspan=5)
 name_entry.get()
 
-watermark = Button(text="Add watermark", bg="#331129", fg="#fafafa", command=watermark)
-watermark.grid(column=5, row=3)
+watermark = Button(text="Add watermark", bg="#000000", fg="#fafafa", command=watermark)
+watermark.grid(column=5, row=4)
+
+show = Button(text="Show image", bg="#000000", fg="#fafafa", command=show_image)
+show.grid(column=3, row=1)
 
 window.mainloop()
