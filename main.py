@@ -1,17 +1,19 @@
 import tkinter.messagebox
 from tkinter import *
 from tkinter import filedialog as fd
+from tkinter.colorchooser import askcolor
 import PIL
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 save_route = "D:/Photos/WatermarkApp/"
 IMG = None
 FILE = None
-OPACITY = 255
+OPACITY = (255, )
 FONT_SIZE = 50
 HEIGHT = 0
 WIDTH = 0
 ROTATION = 0
+COLOR = (255, 255, 255)
 
 
 def select_file():
@@ -62,8 +64,8 @@ def watermark():
             # get a drawing context
             d = ImageDraw.Draw(txt)
             # draw text
-
-            d.text((WIDTH, HEIGHT), f"{wmark_entry.get()}", font=fnt, fill=(255, 255, 255, OPACITY))
+            fill = COLOR + (OPACITY,)
+            d.text((WIDTH, HEIGHT), f"{wmark_entry.get()}", font=fnt, fill=fill)
             rotated_txt = txt.rotate(ROTATION)
             out = Image.alpha_composite(base, rotated_txt)
 
@@ -79,6 +81,15 @@ def watermark():
         tkinter.messagebox.showerror("Error", "Wrong file extension.")
     except AttributeError:
         pass
+
+
+def color():
+    global COLOR
+    colors = askcolor(title="Tkinter Color Chooser")
+    new_color = colors[0]
+    color_button.configure(bg=colors[1])
+    COLOR = new_color
+    watermark()
 
 
 def opacity(value):
@@ -179,14 +190,19 @@ wmark_entry = Entry(width=60, bg="#242424", fg="#fafafa")
 wmark_entry.grid(column=3, row=2, columnspan=10)
 wmark_entry.get()
 
-opacity_label = Label(text="Opacity", bg="#000000", fg="#fafafa", font=("Arial", 8))
+color_label = Label(text="Color:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+color_label.grid(column=4, row=5)
+color_button = Button(text="      ", bg="#fafafa", fg="#fafafa", command=color)
+color_button.grid(column=5, row=5, columnspan=3, sticky=W)
+
+opacity_label = Label(text="Opacity:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 opacity_label.grid(column=4, row=6)
 opacity = Scale(window, from_=0, to=255, orient="horizontal", bg="#000000", fg="#fafafa", highlightthickness=0,
                 command=opacity)
 opacity.set(255)
 opacity.grid(column=5, row=6, ipadx=20)
 
-font_label = Label(text="Font size", bg="#000000", fg="#fafafa", font=("Arial", 8))
+font_label = Label(text="Font size:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 font_label.grid(column=4, row=7, sticky=E)
 default_font_size = StringVar(window)
 default_font_size.set("50")
