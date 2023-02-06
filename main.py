@@ -8,9 +8,7 @@ IMG = None
 OPACITY = 255
 FONT_SIZE = 50
 HEIGHT = 0
-UP_DOWN = HEIGHT / 2
 WIDTH = 0
-LEFT_RIGHT = WIDTH / 2
 ROTATION = 0
 
 
@@ -24,12 +22,8 @@ def show_image():
         panel.image = r_img
         image_size.config(text=f"Image size {height}/{width} (height/width)", bg="#000000", fg="#fafafa",
                            font=("Arial", 8))
-        # up_down.config(from_=0, to=height)
-        # left_right.config(from_=0, to=width)
         HEIGHT = height/2
         WIDTH = width/2
-        # left_right.set(WIDTH/2)
-        # up_down.set(HEIGHT/2)
     else:
         tkinter.messagebox.showerror("Error", "You have to provide a file path to continue.")
 
@@ -44,7 +38,7 @@ def resize(img):
     return ImageTk.PhotoImage(r_img)
 
 
-def create_watermark():
+def watermark():
     try:
         with Image.open(file_entry.get().replace('"', '')).convert("RGBA") as base:
             # make a blank image for the text, initialized to transparent text color
@@ -77,49 +71,49 @@ def create_watermark():
 def opacity(value):
     global OPACITY
     OPACITY = int(value)
-    create_watermark()
+    watermark()
 
 
 def font_size():
     global FONT_SIZE
     FONT_SIZE = int(font_size.get())
-    create_watermark()
+    watermark()
 
 
 def up():
     global HEIGHT
     HEIGHT -= 10
-    create_watermark()
+    watermark()
 
 
 def down():
     global HEIGHT
     HEIGHT += 10
-    create_watermark()
+    watermark()
 
 
 def left():
     global WIDTH
     WIDTH -= 10
-    create_watermark()
+    watermark()
 
 
 def right():
     global WIDTH
     WIDTH += 10
-    create_watermark()
+    watermark()
 
 
 def rotate_left():
     global ROTATION
     ROTATION += 5
-    create_watermark()
+    watermark()
 
 
 def rotate_right():
     global ROTATION
     ROTATION -= 5
-    create_watermark()
+    watermark()
 
 
 def save(marked_img):
@@ -158,63 +152,63 @@ image_size = Label(text=f"Image size {HEIGHT}/{WIDTH} (height/width)", bg="#0000
 image_size.grid(column=0, row=12)
 
 label = Label(text="Image file path:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-label.grid(column=1, row=0)
+label.grid(column=1, row=0, columnspan=2, sticky=E)
 file_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-file_entry.grid(column=2, row=0, columnspan=5)
+file_entry.grid(column=3, row=0, columnspan=10)
 file_entry.get()
 
 show = Button(text="Show", bg="#000000", fg="#fafafa", command=show_image)
-show.grid(column=7, row=0)
+show.grid(column=13, row=0)
 
 wmark = Label(text="Watermark text:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-wmark.grid(column=1, row=2)
+wmark.grid(column=1, row=2, columnspan=2, sticky=E)
 wmark_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-wmark_entry.grid(column=2, row=2, columnspan=5)
+wmark_entry.grid(column=3, row=2, columnspan=10)
 wmark_entry.get()
 
 opacity_label = Label(text="Opacity", bg="#000000", fg="#fafafa", font=("Arial", 8))
-opacity_label.grid(column=1, row=6)
+opacity_label.grid(column=4, row=6)
 opacity = Scale(window, from_=0, to=255, orient="horizontal", bg="#000000", fg="#fafafa", highlightthickness=0,
                 command=opacity)
 opacity.set(255)
-opacity.grid(column=2, row=6, ipadx=20)
+opacity.grid(column=5, row=6, ipadx=20)
 
 font_label = Label(text="Font size", bg="#000000", fg="#fafafa", font=("Arial", 8))
-font_label.grid(column=1, row=7)
+font_label.grid(column=4, row=7, sticky=E)
 default_font_size = StringVar(window)
 default_font_size.set("50")
 font_size = Spinbox(window, from_=1, to=500, width=5, highlightthickness=0, textvariable=default_font_size,
                     command=font_size)
-font_size.grid(column=2, row=7)
+font_size.grid(column=5, row=7, sticky=W)
 
-show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=create_watermark)
-show_wm.grid(column=7, row=2)
+show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=watermark)
+show_wm.grid(column=13, row=2)
 
 name = Label(text="Save as:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-name.grid(column=1, row=8)
+name.grid(column=1, row=8, columnspan=2, sticky=E)
 name_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-name_entry.grid(column=2, row=8, columnspan=5)
+name_entry.grid(column=3, row=8, columnspan=10)
 name_entry.get()
 
 save_img = Button(text="Save", bg="#000000", fg="#fafafa", command=lambda: save(IMG))
-save_img.grid(column=7, row=8)
+save_img.grid(column=13, row=8)
 
 up_btn = Button(text="↑", font=("Arial", 20), bg="#000000", fg="#fafafa", command=up)
-up_btn.grid(column=2, row=3)
+up_btn.grid(column=3, row=3, sticky=S)
 
 down_btn = Button(text="↓", font=("Arial", 20), bg="#000000", fg="#fafafa", command=down)
-down_btn.grid(column=2, row=4)
+down_btn.grid(column=3, row=4)
 
 left_btn = Button(text="←", font=("Arial", 20), bg="#000000", fg="#fafafa", command=left)
-left_btn.grid(column=1, row=4)
+left_btn.grid(column=2, row=4, sticky=E, pady=0)
 
 right_btn = Button(text="→", font=("Arial", 20), bg="#000000", fg="#fafafa", command=right)
-right_btn.grid(column=3, row=4)
+right_btn.grid(column=4, row=4, sticky=W)
 
-rotate_left_btn = Button(text="↺", font=("Arial", 20), bg="#000000", fg="#fafafa", command=rotate_left)
-rotate_left_btn.grid(column=4, row=4)
+rotate_left_btn = Button(text="↺", font=("Arial", 20), bg="#000000", fg="#fafafa", width=4, command=rotate_left)
+rotate_left_btn.grid(column=7, row=4)
 
-rotate_right_btn = Button(text="↻", font=("Arial", 20), bg="#000000", fg="#fafafa", command=rotate_right)
-rotate_right_btn.grid(column=5, row=4)
+rotate_right_btn = Button(text="↻", font=("Arial", 20), bg="#000000", fg="#fafafa", width=4, command=rotate_right)
+rotate_right_btn.grid(column=8, row=4)
 
 window.mainloop()
