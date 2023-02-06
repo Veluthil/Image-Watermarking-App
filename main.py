@@ -3,17 +3,20 @@ from tkinter import *
 from tkinter import filedialog as fd
 from tkinter.colorchooser import askcolor
 import PIL
+import matplotlib
+from matplotlib import font_manager
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 save_route = "D:/Photos/WatermarkApp/"
 IMG = None
 FILE = None
-OPACITY = (255, )
-FONT_SIZE = 50
+OPACITY = (255,)
+FONT_SIZE = 60
 HEIGHT = 0
 WIDTH = 0
 ROTATION = 0
 COLOR = (255, 255, 255)
+FONT = "arial.ttf"
 
 
 def select_file():
@@ -28,18 +31,15 @@ def select_file():
 
 def show_image(filename):
     global HEIGHT, WIDTH
-    # if len(file_entry.get()) != 0:
     img = (Image.open(filename))
     width, height = img.size[0], img.size[1]
     r_img = resize(img)
     panel.configure(image=r_img)
     panel.image = r_img
     image_size.config(text=f"Image size {height}/{width} (height/width)", bg="#000000", fg="#fafafa",
-                       font=("Arial", 8))
-    HEIGHT = height/2
-    WIDTH = width/2
-    # else:
-    #     tkinter.messagebox.showerror("Error", "You have to provide a file path to continue.")
+                      font=("Arial", 8))
+    HEIGHT = height / 2
+    WIDTH = width / 2
 
 
 def resize(img):
@@ -60,7 +60,7 @@ def watermark():
             txt = Image.new("RGBA", base.size, (255, 255, 255, 0))
 
             # get a font
-            fnt = ImageFont.truetype("arial.ttf", FONT_SIZE)
+            fnt = ImageFont.truetype(FONT, FONT_SIZE)
             # get a drawing context
             d = ImageDraw.Draw(txt)
             # draw text
@@ -101,6 +101,12 @@ def opacity(value):
 def font_size():
     global FONT_SIZE
     FONT_SIZE = int(font_size.get())
+    watermark()
+
+
+def font_change(new_font):
+    global FONT
+    FONT = new_font
     watermark()
 
 
@@ -169,25 +175,16 @@ window.config(padx=20, pady=20, bg="#000000")
 blank_photo = Image.new(mode="RGBA", size=(700, 600), color="#242424")
 image1 = ImageTk.PhotoImage(blank_photo)
 panel = Label(window, image=image1)
-panel.image = image1 #keep a reference
+panel.image = image1  # keep a reference
 panel.grid(column=0, rowspan=10)
 
 image_size = Label(text=f"Image size {HEIGHT}/{WIDTH} (height/width)", bg="#000000", fg="#fafafa", font=("Arial", 8))
 image_size.grid(column=0, row=12)
 
-# label = Label(text="Image file path:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-# label.grid(column=1, row=0, columnspan=2, sticky=E)
-# file_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-# file_entry.grid(column=3, row=0, columnspan=10)
-# file_entry.get()
-#
-# show = Button(text="Show", bg="#000000", fg="#fafafa", command=show_image)
-# show.grid(column=13, row=0)
-
 wmark = Label(text="Watermark text:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-wmark.grid(column=1, row=2, columnspan=2, sticky=E)
+wmark.grid(column=2, row=2, columnspan=2, sticky=E)
 wmark_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-wmark_entry.grid(column=3, row=2, columnspan=10)
+wmark_entry.grid(column=4, row=2, columnspan=9)
 wmark_entry.get()
 
 color_label = Label(text="Color:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
@@ -205,10 +202,19 @@ opacity.grid(column=5, row=6, ipadx=20)
 font_label = Label(text="Font size:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 font_label.grid(column=4, row=7, sticky=E)
 default_font_size = StringVar(window)
-default_font_size.set("50")
-font_size = Spinbox(window, from_=1, to=500, width=5, highlightthickness=0, textvariable=default_font_size,
+default_font_size.set("60")
+font_size = Spinbox(window, from_=1, to=1000, width=5, highlightthickness=0, textvariable=default_font_size,
                     command=font_size)
 font_size.grid(column=5, row=7, sticky=W)
+
+font_list = matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf')
+formatted_font_list = [x.split("\\")[-1] for x in font_list]
+font = StringVar(window)
+font.set("arial.ttf")
+font_type_label = Label(text="Font:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+font_type_label.grid(column=6, row=7)
+font_type = OptionMenu(window, font, *formatted_font_list, command=font_change)
+font_type.grid(column=7, row=7)
 
 show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=watermark)
 show_wm.grid(column=13, row=2)
