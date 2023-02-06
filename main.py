@@ -1,10 +1,12 @@
 import tkinter.messagebox
 from tkinter import *
+from tkinter import filedialog as fd
 import PIL
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 save_route = "D:/Photos/WatermarkApp/"
 IMG = None
+FILE = None
 OPACITY = 255
 FONT_SIZE = 50
 HEIGHT = 0
@@ -12,20 +14,30 @@ WIDTH = 0
 ROTATION = 0
 
 
-def show_image():
+def select_file():
+    global FILE
+    filename = fd.askopenfilename(filetypes=[("jpeg", ".jpg .jpeg"),
+                                             ("png", ".png"),
+                                             ("bitmap", "bmp"),
+                                             ("gif", ".gif")])
+    show_image(filename)
+    FILE = filename
+
+
+def show_image(filename):
     global HEIGHT, WIDTH
-    if len(file_entry.get()) != 0:
-        img = (Image.open(file_entry.get().replace('"', '')))
-        width, height = img.size[0], img.size[1]
-        r_img = resize(img)
-        panel.configure(image=r_img)
-        panel.image = r_img
-        image_size.config(text=f"Image size {height}/{width} (height/width)", bg="#000000", fg="#fafafa",
-                           font=("Arial", 8))
-        HEIGHT = height/2
-        WIDTH = width/2
-    else:
-        tkinter.messagebox.showerror("Error", "You have to provide a file path to continue.")
+    # if len(file_entry.get()) != 0:
+    img = (Image.open(filename))
+    width, height = img.size[0], img.size[1]
+    r_img = resize(img)
+    panel.configure(image=r_img)
+    panel.image = r_img
+    image_size.config(text=f"Image size {height}/{width} (height/width)", bg="#000000", fg="#fafafa",
+                       font=("Arial", 8))
+    HEIGHT = height/2
+    WIDTH = width/2
+    # else:
+    #     tkinter.messagebox.showerror("Error", "You have to provide a file path to continue.")
 
 
 def resize(img):
@@ -39,8 +51,9 @@ def resize(img):
 
 
 def watermark():
+    global IMG, FILE
     try:
-        with Image.open(file_entry.get().replace('"', '')).convert("RGBA") as base:
+        with Image.open(FILE).convert("RGBA") as base:
             # make a blank image for the text, initialized to transparent text color
             txt = Image.new("RGBA", base.size, (255, 255, 255, 0))
 
@@ -58,7 +71,7 @@ def watermark():
             w_img = resize(marked_img)
             panel.configure(image=w_img)
             panel.image = w_img
-            global IMG
+
             IMG = marked_img
     except FileNotFoundError:
         tkinter.messagebox.showerror("Error", "No such file.")
@@ -151,14 +164,14 @@ panel.grid(column=0, rowspan=10)
 image_size = Label(text=f"Image size {HEIGHT}/{WIDTH} (height/width)", bg="#000000", fg="#fafafa", font=("Arial", 8))
 image_size.grid(column=0, row=12)
 
-label = Label(text="Image file path:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-label.grid(column=1, row=0, columnspan=2, sticky=E)
-file_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-file_entry.grid(column=3, row=0, columnspan=10)
-file_entry.get()
-
-show = Button(text="Show", bg="#000000", fg="#fafafa", command=show_image)
-show.grid(column=13, row=0)
+# label = Label(text="Image file path:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+# label.grid(column=1, row=0, columnspan=2, sticky=E)
+# file_entry = Entry(width=60, bg="#242424", fg="#fafafa")
+# file_entry.grid(column=3, row=0, columnspan=10)
+# file_entry.get()
+#
+# show = Button(text="Show", bg="#000000", fg="#fafafa", command=show_image)
+# show.grid(column=13, row=0)
 
 wmark = Label(text="Watermark text:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 wmark.grid(column=1, row=2, columnspan=2, sticky=E)
@@ -210,5 +223,8 @@ rotate_left_btn.grid(column=7, row=4)
 
 rotate_right_btn = Button(text="↻", font=("Arial", 20), bg="#000000", fg="#fafafa", width=4, command=rotate_right)
 rotate_right_btn.grid(column=8, row=4)
+
+select = Button(text="Select file", font=("Arial", 10), bg="#000000", fg="#fafafa", command=select_file)
+select.grid()
 
 window.mainloop()
