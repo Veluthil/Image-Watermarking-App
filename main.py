@@ -44,7 +44,7 @@ def show_image(filename):
 
 def resize(img):
     size = img.size
-    f_size = (700, 600)
+    f_size = (600, 600)
     factor = min(float(f_size[1]) / size[1], float(f_size[0]) / size[0])
     width = int(size[0] * factor)
     height = int(size[1] * factor)
@@ -172,81 +172,81 @@ window.title("Image Watermarking App")
 window.minsize(height=100, width=500)
 window.config(padx=20, pady=20, bg="#000000")
 
-blank_photo = Image.new(mode="RGBA", size=(700, 600), color="#242424")
+blank_photo = Image.new(mode="RGBA", size=(600, 600), color="#242424")
 image1 = ImageTk.PhotoImage(blank_photo)
 panel = Label(window, image=image1)
 panel.image = image1  # keep a reference
-panel.grid(column=0, rowspan=10)
+panel.grid(column=0, rowspan=15)
 
 image_size = Label(text=f"Image size {HEIGHT}/{WIDTH} (height/width)", bg="#000000", fg="#fafafa", font=("Arial", 8))
-image_size.grid(column=0, row=12)
+image_size.grid(column=0, row=16)
 
-wmark = Label(text="Watermark text:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-wmark.grid(column=2, row=2, columnspan=2, sticky=E)
-wmark_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-wmark_entry.grid(column=4, row=2, columnspan=9)
+wmark = Label(text="Watermark:", width=15, bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+wmark.grid(column=3, row=2, sticky=E)
+wmark_entry = Entry(width=40, bg="#242424", fg="#fafafa")
+wmark_entry.grid(column=4, row=2, columnspan=2)
 wmark_entry.get()
 
 color_label = Label(text="Color:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-color_label.grid(column=4, row=5)
+color_label.grid(column=4, row=7)
 color_button = Button(text="      ", bg="#fafafa", fg="#fafafa", command=color)
-color_button.grid(column=5, row=5, columnspan=3, sticky=W)
+color_button.grid(column=5, row=7, columnspan=3, sticky=W)
 
 opacity_label = Label(text="Opacity:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-opacity_label.grid(column=4, row=6)
+opacity_label.grid(column=4, row=8)
 opacity = Scale(window, from_=0, to=255, orient="horizontal", bg="#000000", fg="#fafafa", highlightthickness=0,
                 command=opacity)
 opacity.set(255)
-opacity.grid(column=5, row=6, ipadx=20)
+opacity.grid(column=5, row=8, ipadx=20)
 
 font_label = Label(text="Font size:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-font_label.grid(column=4, row=7, sticky=E)
+font_label.grid(column=4, row=9, sticky=E)
 default_font_size = StringVar(window)
 default_font_size.set("60")
 font_size = Spinbox(window, from_=1, to=1000, width=5, highlightthickness=0, textvariable=default_font_size,
                     command=font_size)
-font_size.grid(column=5, row=7, sticky=W)
+font_size.grid(column=5, row=9, sticky=W)
 
 font_list = matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf')
 formatted_font_list = [x.split("\\")[-1] for x in font_list]
 font = StringVar(window)
 font.set("arial.ttf")
 font_type_label = Label(text="Font:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-font_type_label.grid(column=6, row=7)
+font_type_label.grid(column=4, row=10)
 font_type = OptionMenu(window, font, *formatted_font_list, command=font_change)
-font_type.grid(column=7, row=7)
+font_type.grid(column=5, row=10, sticky=W)
 
 show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=watermark)
-show_wm.grid(column=13, row=2)
+show_wm.grid(column=6, row=2)
 
-name = Label(text="Save as:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-name.grid(column=1, row=8, columnspan=2, sticky=E)
-name_entry = Entry(width=60, bg="#242424", fg="#fafafa")
-name_entry.grid(column=3, row=8, columnspan=10)
+name = Label(text="Save as:", width=15, bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
+name.grid(column=3, row=11, sticky=E)
+name_entry = Entry(width=40, bg="#242424", fg="#fafafa")
+name_entry.grid(column=4, row=11, columnspan=2, sticky=W)
 name_entry.get()
 
 save_img = Button(text="Save", bg="#000000", fg="#fafafa", command=lambda: save(IMG))
-save_img.grid(column=13, row=8)
+save_img.grid(column=6, row=11)
 
-up_btn = Button(text="↑", font=("Arial", 20), bg="#000000", fg="#fafafa", command=up)
-up_btn.grid(column=3, row=3, sticky=S)
+up_btn = Button(text="⮝", font=("Arial", 20), bg="#000000", fg="#fafafa", command=up)
+up_btn.grid(column=4, row=3, sticky=S)
 
-down_btn = Button(text="↓", font=("Arial", 20), bg="#000000", fg="#fafafa", command=down)
-down_btn.grid(column=3, row=4)
+down_btn = Button(text="⮟", font=("Arial", 20), bg="#000000", fg="#fafafa", command=down)
+down_btn.grid(column=4, row=5, sticky=N)
 
-left_btn = Button(text="←", font=("Arial", 20), bg="#000000", fg="#fafafa", command=left)
-left_btn.grid(column=2, row=4, sticky=E, pady=0)
+left_btn = Button(text="⮜", font=("Arial", 20), bg="#000000", fg="#fafafa", command=left)
+left_btn.grid(column=3, row=4, sticky=E, pady=0)
 
-right_btn = Button(text="→", font=("Arial", 20), bg="#000000", fg="#fafafa", command=right)
-right_btn.grid(column=4, row=4, sticky=W)
+right_btn = Button(text="⮞", font=("Arial", 20), bg="#000000", fg="#fafafa", command=right)
+right_btn.grid(column=5, row=4, sticky=W)
 
-rotate_left_btn = Button(text="↺", font=("Arial", 20), bg="#000000", fg="#fafafa", width=4, command=rotate_left)
-rotate_left_btn.grid(column=7, row=4)
+rotate_left_btn = Button(text="⟲", font=("Arial", 20), bg="#000000", fg="#fafafa", width=3, command=rotate_left)
+rotate_left_btn.grid(column=6, row=4, sticky=W)
 
-rotate_right_btn = Button(text="↻", font=("Arial", 20), bg="#000000", fg="#fafafa", width=4, command=rotate_right)
-rotate_right_btn.grid(column=8, row=4)
+rotate_right_btn = Button(text="⟳", font=("Arial", 20), bg="#000000", fg="#fafafa", width=3, command=rotate_right)
+rotate_right_btn.grid(column=7, row=4)
 
-select = Button(text="Select file", font=("Arial", 10), bg="#000000", fg="#fafafa", command=select_file)
+select = Button(text="Select file", font=("Arial", 12), bg="#000000", fg="#fafafa", command=select_file)
 select.grid()
 
 window.mainloop()
