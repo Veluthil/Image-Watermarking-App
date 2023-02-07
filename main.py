@@ -1,11 +1,11 @@
-import tkinter.messagebox
 from tkinter import *
 from tkinter import filedialog as fd
 from tkinter.colorchooser import askcolor
+import tkinter.messagebox
 import PIL
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 import matplotlib
 from matplotlib import font_manager
-from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 
 # --------- Variables for Watermark and Image -----------------
