@@ -25,12 +25,15 @@ font_main = "arial.ttf"
 
 def select_file():
     global file_main
-    filename = fd.askopenfilename(filetypes=[("jpeg", ".jpg .jpeg"),
-                                             ("png", ".png"),
-                                             ("bitmap", "bmp"),
-                                             ("gif", ".gif")])
-    show_image(filename)
-    file_main = filename
+    try:
+        filename = fd.askopenfilename(filetypes=[("jpeg", ".jpg .jpeg"),
+                                                 ("png", ".png"),
+                                                 ("bitmap", "bmp"),
+                                                 ("gif", ".gif")])
+        show_image(filename)
+        file_main = filename
+    except AttributeError:
+        pass
 
 
 def show_image(filename):
@@ -48,7 +51,7 @@ def show_image(filename):
 
 def resize(img):
     size = img.size
-    f_size = (600, 600)
+    f_size = (700, 700)
     factor = min(float(f_size[1]) / size[1], float(f_size[0]) / size[0])
     width = int(size[0] * factor)
     height = int(size[1] * factor)
@@ -180,7 +183,7 @@ window.minsize(height=100, width=500)
 window.config(padx=20, pady=20, bg="#000000")
 
 # ----------- Blank Photo ----------------------
-blank_photo = Image.new(mode="RGBA", size=(600, 600), color="#242424")
+blank_photo = Image.new(mode="RGBA", size=(700, 700), color="#242424")
 image1 = ImageTk.PhotoImage(blank_photo)
 panel = Label(window, image=image1)
 panel.image = image1  # keep a reference
@@ -200,36 +203,40 @@ wmark_entry.get()
 
 # ------------ Watermark Color ---------------------
 color_label = Label(text="Color:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-color_label.grid(column=4, row=7)
+color_label.grid(column=4, row=9)
 color_button = Button(text="      ", bg="#fafafa", fg="#fafafa", command=color)
-color_button.grid(column=5, row=7, columnspan=3, sticky=W)
+color_button.grid(column=5, row=9, columnspan=3, sticky=W)
 
 # ------------ Watermark Opacity ------------------
 opacity_label = Label(text="Opacity:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-opacity_label.grid(column=4, row=8)
+opacity_label.grid(column=4, row=10)
 opacity = Scale(window, from_=0, to=255, orient="horizontal", bg="#000000", fg="#fafafa", highlightthickness=0,
                 command=opacity)
 opacity.set(255)
-opacity.grid(column=5, row=8, ipadx=20)
+opacity.grid(column=5, row=10, ipadx=20, sticky=W)
 
 # ------------- Watermark Font Size ----------------
 font_label = Label(text="Font size:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-font_label.grid(column=4, row=9, sticky=E)
+font_label.grid(column=4, row=11, sticky=E)
 default_font_size = StringVar(window)
 default_font_size.set("60")
 font_size = Spinbox(window, from_=1, to=1000, width=5, highlightthickness=0, textvariable=default_font_size,
                     command=font_size)
-font_size.grid(column=5, row=9, sticky=W)
+font_size.grid(column=5, row=11, sticky=W)
 
 # -------------- Watermark Font Type ---------------
 font_list = matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf')
+final_font_list = []
 formatted_font_list = [x.split("\\")[-1] for x in font_list]
+for font in formatted_font_list:
+    if font[-3] != "otf":
+        final_font_list.append(font)
 font = StringVar(window)
 font.set("arial.ttf")
 font_type_label = Label(text="Font:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-font_type_label.grid(column=4, row=10)
-font_type = OptionMenu(window, font, *formatted_font_list, command=font_change)
-font_type.grid(column=5, row=10, sticky=W)
+font_type_label.grid(column=4, row=12)
+font_type = OptionMenu(window, font, *final_font_list, command=font_change)
+font_type.grid(column=5, row=12, sticky=W)
 
 # -------------- Show Watermark Button -------------
 show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=watermark)
@@ -237,14 +244,14 @@ show_wm.grid(column=6, row=2)
 
 # -------------- Watermarked Image File Name ----------
 name = Label(text="Save as:", width=15, bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-name.grid(column=3, row=11, sticky=E)
+name.grid(column=3, row=17, sticky=E)
 name_entry = Entry(width=40, bg="#242424", fg="#fafafa")
-name_entry.grid(column=4, row=11, columnspan=2, sticky=W)
+name_entry.grid(column=4, row=17, columnspan=2, sticky=W)
 name_entry.get()
 
 # -------------- Save Watermarked Image Button ----------------
 save_img = Button(text="Save", bg="#000000", fg="#fafafa", command=lambda: save(img_main))
-save_img.grid(column=6, row=11)
+save_img.grid(column=6, row=17)
 
 # -------------- Watermark Location Settings -----------------
 up_btn = Button(text="⮝", font=("Arial", 20), bg="#000000", fg="#fafafa", command=up)
@@ -267,7 +274,7 @@ rotate_right_btn.grid(column=7, row=4)
 
 # --------------- Select Image File --------------------
 select = Button(text="Select file", font=("Arial", 12), bg="#000000", fg="#fafafa", command=select_file)
-select.grid()
+select.grid(column=0, row=17)
 
 # -------------- Application Loop -----------------
 window.mainloop()
