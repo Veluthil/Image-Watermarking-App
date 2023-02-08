@@ -197,8 +197,8 @@ image_size.grid(column=0, row=16)
 # ----------- Watermark Text -------------------
 wmark = Label(text="Watermark:", width=15, bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 wmark.grid(column=3, row=2, sticky=E)
-wmark_entry = Entry(width=40, bg="#242424", fg="#fafafa")
-wmark_entry.grid(column=4, row=2, columnspan=2)
+wmark_entry = Entry(width=50, bg="#242424", fg="#fafafa")
+wmark_entry.grid(column=4, row=2, columnspan=4)
 wmark_entry.get()
 
 # ------------ Watermark Color ---------------------
@@ -229,7 +229,7 @@ font_list = matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf
 final_font_list = []
 formatted_font_list = [x.split("\\")[-1] for x in font_list]
 for font in formatted_font_list:
-    if font[-3] != "otf":
+    if ".otf" not in font:
         final_font_list.append(font)
 font = StringVar(window)
 font.set("arial.ttf")
@@ -240,18 +240,18 @@ font_type.grid(column=5, row=12, sticky=W)
 
 # -------------- Show Watermark Button -------------
 show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=watermark)
-show_wm.grid(column=6, row=2)
+show_wm.grid(column=8, row=2)
 
 # -------------- Watermarked Image File Name ----------
 name = Label(text="Save as:", width=15, bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 name.grid(column=3, row=17, sticky=E)
-name_entry = Entry(width=40, bg="#242424", fg="#fafafa")
-name_entry.grid(column=4, row=17, columnspan=2, sticky=W)
+name_entry = Entry(width=50, bg="#242424", fg="#fafafa")
+name_entry.grid(column=4, row=17, columnspan=4, sticky=W)
 name_entry.get()
 
 # -------------- Save Watermarked Image Button ----------------
 save_img = Button(text="Save", bg="#000000", fg="#fafafa", command=lambda: save(img_main))
-save_img.grid(column=6, row=17)
+save_img.grid(column=8, row=17)
 
 # -------------- Watermark Location Settings -----------------
 up_btn = Button(text="⮝", font=("Arial", 20), bg="#000000", fg="#fafafa", command=up)
@@ -266,11 +266,11 @@ left_btn.grid(column=3, row=4, sticky=E, pady=0)
 right_btn = Button(text="⮞", font=("Arial", 20), bg="#000000", fg="#fafafa", command=right)
 right_btn.grid(column=5, row=4, sticky=W)
 
-rotate_left_btn = Button(text="⟲", font=("Arial", 20), bg="#000000", fg="#fafafa", width=3, command=rotate_left)
+rotate_left_btn = Button(text="⟲", font=("Arial", 20), bg="#000000", fg="#fafafa", command=rotate_left)
 rotate_left_btn.grid(column=6, row=4, sticky=W)
 
-rotate_right_btn = Button(text="⟳", font=("Arial", 20), bg="#000000", fg="#fafafa", width=3, command=rotate_right)
-rotate_right_btn.grid(column=7, row=4)
+rotate_right_btn = Button(text="⟳", font=("Arial", 20), bg="#000000", fg="#fafafa", command=rotate_right)
+rotate_right_btn.grid(column=7, row=4, sticky=W)
 
 # --------------- Select Image File --------------------
 select = Button(text="Select file", font=("Arial", 12), bg="#000000", fg="#fafafa", command=select_file)
