@@ -26,12 +26,12 @@ Saving process:
 -----
 
 Functionality
--------
+------
 
-Buttons, Scale, Spinbox, and OptionMenu allow you to adjust the Watermark position, rotation, font size, font type, opacity, and color.
+- Buttons, Scale, Spinbox, and OptionMenu allow you to adjust the Watermark position, rotation, font size, font type, opacity, and color.
 
-The "Select file" button opens a new window, where you can choose any of the jpeg, .jpg, .jpeg, png, .png, bitmap, bmp, gif, .gif files to load.
+- The "Select file" button opens a new window, where you can choose any of the jpeg, .jpg, .jpeg, png, .png, bitmap, bmp, gif, .gif files to load.
 
-Watermark label allows you to provide a text that will be made into a custom watermark that you can modify with all of the stated above options.
+- Watermark label allows you to provide a text that will be made into a custom watermark that you can modify with all of the stated above options.
 
-The "Save as:" label allows you to name your watermarked image, and later save it to the previously hard-coded directory thanks to the "Save" button. 
+- The "Save as:" label allows you to name your watermarked image, and later save it to the previously hard-coded directory thanks to the "Save" button. 
