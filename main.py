@@ -19,6 +19,8 @@ width_main = 0
 rotation_main = 0
 color_main = (255, 255, 255)
 font_main = "arial.ttf"
+original_height = 0
+original_width = 0
 
 
 # ---------- Creating Main Functions ------------------------
@@ -37,7 +39,7 @@ def select_file():
 
 
 def show_image(filename):
-    global height_main, width_main
+    global height_main, width_main, original_height, original_width
     img = (Image.open(filename))
     width, height = img.size[0], img.size[1]
     r_img = resize(img)
@@ -47,6 +49,8 @@ def show_image(filename):
                       font=("Arial", 8))
     height_main = height / 2
     width_main = width / 2
+    original_height = height
+    original_width = width
 
 
 def resize(img):
@@ -141,26 +145,38 @@ def font_change(new_font):
 
 
 def up():
-    global height_main
-    height_main -= 10
+    global height_main, original_height
+    if original_height > 1500:
+        height_main -= 50
+    else:
+        height_main -= 10
     watermark()
 
 
 def down():
-    global height_main
-    height_main += 10
+    global height_main, original_height
+    if original_height > 1500:
+        height_main += 50
+    else:
+        height_main += 10
     watermark()
 
 
 def left():
-    global width_main
-    width_main -= 10
+    global width_main, original_width
+    if original_width > 1500:
+        width_main -= 50
+    else:
+        width_main -= 10
     watermark()
 
 
 def right():
-    global width_main
-    width_main += 10
+    global width_main, original_width
+    if original_width > 1500:
+        width_main += 50
+    else:
+        width_main += 10
     watermark()
 
 
