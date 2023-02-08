@@ -17,7 +17,7 @@ Watermark text color selection:
 
 Font type selection:
 -----
-![Screenshot 2023-02-08 172428](https://user-images.githubusercontent.com/108438343/217624961-cf97dbab-d13d-4ac3-9370-c1af89179dcc.png)
+![Screenshot 2023-02-08 224217](https://user-images.githubusercontent.com/108438343/217658028-bb467611-67d5-4c44-9f5d-a6209a73d446.png)
 
 Saving process:
 -----
