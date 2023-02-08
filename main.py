@@ -18,7 +18,7 @@ height_main = 0
 width_main = 0
 rotation_main = 0
 color_main = (255, 255, 255)
-font_main = "arial.ttf"
+font_main = "arial"
 original_height = 0
 original_width = 0
 
@@ -246,9 +246,9 @@ final_font_list = []
 formatted_font_list = [x.split("\\")[-1] for x in font_list]
 for font in formatted_font_list:
     if ".otf" not in font:
-        final_font_list.append(font)
+        final_font_list.append(font.replace(".ttf", "").replace(".TTF", "").replace(".ttc", ""))
 font = StringVar(window)
-font.set("arial.ttf")
+font.set("arial")
 font_type_label = Label(text="Font:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 font_type_label.grid(column=4, row=12)
 font_type = OptionMenu(window, font, *final_font_list, command=font_change)
