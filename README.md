@@ -35,3 +35,6 @@ Functionality
 - Watermark label allows you to provide a text that will be made into a custom watermark that you can modify with all of the stated above options.
 
 - The "Save as:" label allows you to name your watermarked image, and later save it to the previously hard-coded directory thanks to the "Save" button. 
+
+
+I want to change this project into an OOP app, to avoid using global variables.
