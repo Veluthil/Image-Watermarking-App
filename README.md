@@ -5,24 +5,24 @@ This Python project uses Tkinter, Pillow and Matplotlib libraries to create GUI 
 
 GUI layout:
 -----
-![Screenshot 2023-02-08 171927](https://user-images.githubusercontent.com/108438343/217624072-634945a0-7cdc-41f9-aaec-4b8d99473a5d.png)
+![Screenshot 2023-02-10 175604](https://user-images.githubusercontent.com/108438343/218153810-81981fe6-6c76-42ef-9278-e2cc427edde8.png)
 
 Image file selection:
 -----
-![Screenshot 2023-02-08 181910](https://user-images.githubusercontent.com/108438343/217625061-3f624887-4257-45c1-99b9-8ffbb0d5ee1f.png)
+![Screenshot 2023-02-10 181129](https://user-images.githubusercontent.com/108438343/218153915-d8dfd35c-eab2-4229-8082-c0f101a1237a.png)
 
 Watermark text color selection:
 -----
-![Screenshot 2023-02-08 172136](https://user-images.githubusercontent.com/108438343/217624625-36e255db-d945-4022-a9ad-36562dda0c89.png)
+![Screenshot 2023-02-10 180525](https://user-images.githubusercontent.com/108438343/218153952-aaf0a595-eaa3-4bed-86c4-9adc9de6e254.png)
 
 Font type selection:
 -----
-![Screenshot 2023-02-08 224217](https://user-images.githubusercontent.com/108438343/217658028-bb467611-67d5-4c44-9f5d-a6209a73d446.png)
+![Screenshot 2023-02-10 175732](https://user-images.githubusercontent.com/108438343/218154003-be9013b2-1978-4d89-a282-c2ee183500f5.png)
 
 Saving process:
 -----
-![Screenshot 2023-02-08 173146](https://user-images.githubusercontent.com/108438343/217625026-59259d94-c367-4acc-95dd-7ae43192eae5.png)
-![Screenshot 2023-02-08 173257](https://user-images.githubusercontent.com/108438343/217625569-3efd0e85-0e15-49a2-97ad-89fed247eb5b.png)
+![Screenshot 2023-02-10 180237](https://user-images.githubusercontent.com/108438343/218154068-513d9ec6-9b82-4bf2-911d-b73141c58e36.png)
+
 -----
 
 Functionality
@@ -34,7 +34,7 @@ Functionality
 
 - Watermark label allows you to provide a text that will be made into a custom watermark that you can modify with all of the stated above options.
 
-- The "Save as:" label allows you to name your watermarked image, and later save it to the previously hard-coded directory thanks to the "Save" button. 
+- The "Save" button allows you to name your watermarked image and save it in the chosen file path - app automatically converts .jpg image file into RGB. 
 
 
 I want to change this project into an OOP app, to avoid using global variables.
