@@ -6,10 +6,10 @@ import PIL
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 import matplotlib
 from matplotlib import font_manager
+import os
 
 
 # --------- Variables for Watermark and Image -----------------
-save_route = "D:/Photos/WatermarkApp/"
 img_main = ""
 file_main = ""
 opacity_main = (255,)
@@ -95,24 +95,15 @@ def watermark():
 
 
 def save(marked_img):
-    file_name = name_entry.get()
-    clean_save_route = save_route.replace('"', '')
-    answer = tkinter.messagebox.askyesno("Proceed", "Do you want to save?")
-    with open("data.txt", mode="r") as txt_file:
-        names = txt_file.read()
-        if file_name not in names:
-            if answer:
-                with open("data.txt", mode="a") as file:
-                    file.write(f"{file_name}\n")
-                marked_img.save(f"{clean_save_route}/{file_name}.bmp")
-                tkinter.messagebox.showinfo("Success", f"Image got watermarked and saved to"
-                                                       f" {save_route}{file_name}.bmp.")
-        elif file_name == "":
-            tkinter.messagebox.showerror("Error", "Error: You have to provide a file name.")
-        else:
-            tkinter.messagebox.showerror("Error", f'You have already saved an image with "{file_name}" '
-                                                  'name. Try something else.')
-
+    path = fd.asksaveasfilename(confirmoverwrite=True, defaultextension="png", filetypes=[("jpeg", ".jpg"),
+                                                                                               ("png", ".png"),
+                                                                                               ("bitmap", "bmp"),
+                                                                                               ("gif", ".gif")])
+    if path is not None:
+        if os.path.splitext(path)[1] == ".jpg":
+            image = marked_img.convert("RGB")
+            image.save(path)
+            tkinter.messagebox.showinfo("Success", f"Image got watermarked and saved.")
 
 #  ----------------- Watermark Appearance Functions --------------
 
@@ -258,16 +249,9 @@ font_type.grid(column=5, row=12, sticky=W)
 show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=watermark)
 show_wm.grid(column=8, row=2)
 
-# -------------- Watermarked Image File Name ----------
-name = Label(text="Save as:", width=15, bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-name.grid(column=3, row=17, sticky=E)
-name_entry = Entry(width=50, bg="#242424", fg="#fafafa")
-name_entry.grid(column=4, row=17, columnspan=4, sticky=W)
-name_entry.get()
-
 # -------------- Save Watermarked Image Button ----------------
-save_img = Button(text="Save", bg="#000000", fg="#fafafa", command=lambda: save(img_main))
-save_img.grid(column=8, row=17)
+save_img = Button(text="Save", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"), command=lambda: save(img_main))
+save_img.grid(column=7, row=16)
 
 # -------------- Watermark Location Settings -----------------
 up_btn = Button(text="⮝", font=("Arial", 20), bg="#000000", fg="#fafafa", command=up)
