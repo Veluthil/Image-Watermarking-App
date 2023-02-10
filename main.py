@@ -55,7 +55,7 @@ def show_image(filename):
 
 def resize(img):
     size = img.size
-    f_size = (700, 700)
+    f_size = (700, 600)
     factor = min(float(f_size[1]) / size[1], float(f_size[0]) / size[0])
     width = int(size[0] * factor)
     height = int(size[1] * factor)
@@ -103,7 +103,7 @@ def save(marked_img):
         if os.path.splitext(path)[1] == ".jpg":
             image = marked_img.convert("RGB")
             image.save(path)
-            tkinter.messagebox.showinfo("Success", f"Image got watermarked and saved.")
+            tkinter.messagebox.showinfo("Success", "Image got watermarked and saved.")
 
 #  ----------------- Watermark Appearance Functions --------------
 
@@ -190,7 +190,7 @@ window.minsize(height=100, width=500)
 window.config(padx=20, pady=20, bg="#000000")
 
 # ----------- Blank Photo ----------------------
-blank_photo = Image.new(mode="RGBA", size=(700, 700), color="#242424")
+blank_photo = Image.new(mode="RGBA", size=(700, 600), color="#242424")
 image1 = ImageTk.PhotoImage(blank_photo)
 panel = Label(window, image=image1)
 panel.image = image1  # keep a reference
