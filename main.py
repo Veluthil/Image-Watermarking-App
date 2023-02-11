@@ -96,9 +96,9 @@ def watermark():
 
 def save(marked_img):
     path = fd.asksaveasfilename(confirmoverwrite=True, defaultextension="png", filetypes=[("jpeg", ".jpg"),
-                                                                                               ("png", ".png"),
-                                                                                               ("bitmap", "bmp"),
-                                                                                               ("gif", ".gif")])
+                                                                                          ("png", ".png"),
+                                                                                          ("bitmap", "bmp"),
+                                                                                          ("gif", ".gif")])
     if path is not None:
         if os.path.splitext(path)[1] == ".jpg":
             image = marked_img.convert("RGB")
