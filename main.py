@@ -203,33 +203,33 @@ image_size.grid(column=0, row=16)
 
 # ----------- Watermark Text -------------------
 wmark = Label(text="Watermark:", width=15, bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-wmark.grid(column=3, row=2, sticky=E)
+wmark.grid(column=3, row=2, sticky=W)
 wmark_entry = Entry(width=50, bg="#242424", fg="#fafafa")
 wmark_entry.grid(column=4, row=2, columnspan=4)
 wmark_entry.get()
 
 # ------------ Watermark Color ---------------------
 color_label = Label(text="Color:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-color_label.grid(column=4, row=9)
+color_label.grid(column=4, row=9, sticky=W)
 color_button = Button(text="      ", bg="#fafafa", fg="#fafafa", command=color)
-color_button.grid(column=5, row=9, columnspan=3, sticky=W)
+color_button.grid(column=5, row=9, sticky=E)
 
 # ------------ Watermark Opacity ------------------
 opacity_label = Label(text="Opacity:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-opacity_label.grid(column=4, row=10)
+opacity_label.grid(column=4, row=10, sticky=W)
 opacity = Scale(window, from_=0, to=255, orient="horizontal", bg="#000000", fg="#fafafa", highlightthickness=0,
                 command=opacity)
 opacity.set(255)
-opacity.grid(column=5, row=10, ipadx=20, sticky=W)
+opacity.grid(column=5, row=10, ipadx=20, sticky=E)
 
 # ------------- Watermark Font Size ----------------
 font_label = Label(text="Font size:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-font_label.grid(column=4, row=11, sticky=E)
+font_label.grid(column=4, row=11, sticky=W)
 default_font_size = StringVar(window)
 default_font_size.set("60")
 font_size = Spinbox(window, from_=1, to=1000, width=5, highlightthickness=0, textvariable=default_font_size,
                     command=font_size)
-font_size.grid(column=5, row=11, sticky=W)
+font_size.grid(column=5, row=11, sticky=E)
 
 # -------------- Watermark Font Type ---------------
 font_list = matplotlib.font_manager.findSystemFonts(fontpaths=None, fontext='ttf')
@@ -241,9 +241,9 @@ for font in formatted_font_list:
 font = StringVar(window)
 font.set("arial")
 font_type_label = Label(text="Font:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
-font_type_label.grid(column=4, row=12)
+font_type_label.grid(column=4, row=12, sticky=W)
 font_type = OptionMenu(window, font, *final_font_list, command=font_change)
-font_type.grid(column=5, row=12, sticky=W)
+font_type.grid(column=5, row=12, sticky=E)
 
 # -------------- Show Watermark Button -------------
 show_wm = Button(text="Show", bg="#000000", fg="#fafafa", command=watermark)
