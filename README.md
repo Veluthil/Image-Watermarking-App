@@ -1,5 +1,5 @@
 # Image-Watermarking-App
-App that allows to add a custom watermark to the provided image file. 
+The app allows to add a custom watermark to the provided image file, then name it and save it to the chosen directory. 
 
 This Python project uses Tkinter, Pillow and Matplotlib libraries to create GUI and all of the features.
 
@@ -32,9 +32,9 @@ Functionality
 
 - The "Select file" button opens a new window, where you can choose any of the jpeg, .jpg, .jpeg, png, .png, bitmap, bmp, gif, .gif files to load.
 
-- Watermark label allows you to provide a text that will be made into a custom watermark that you can modify with all of the stated above options.
+- The watermark label allows you to provide a text that will get transformed into a custom watermark that you can modify with all of the options given above.
 
 - The "Save" button allows you to name your watermarked image and save it in the chosen file path - app automatically converts .jpg image file into RGB. 
 
 
-I want to change this project into an OOP app, to avoid using global variables.
+I will change this project into an OOP app to avoid using global variables.
