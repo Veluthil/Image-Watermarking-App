@@ -1,7 +1,7 @@
 # Image-Watermarking-App
 The app allows to add a custom watermark to the provided image file, then name it and save it to the chosen directory. 
 
-This Python project uses Tkinter, Pillow and Matplotlib libraries to create GUI and all of the features.
+This Python project uses Tkinter, Pillow and Matplotlib libraries to create GUI and all the features.
 
 GUI layout:
 -----
