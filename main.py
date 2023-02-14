@@ -64,12 +64,20 @@ def resize(img):
 
 
 def watermark():
-    global img_main, file_main
+    global img_main, file_main, font_size_main
     try:
         with Image.open(file_main).convert("RGBA") as base:
             # make a blank image for the text, initialized to transparent text color
             txt = Image.new("RGBA", base.size, (255, 255, 255, 0))
-
+            if original_width > 2500:
+                font_size_main = 250
+                default_font_size.set("250")
+            elif original_width > 1500:
+                font_size_main = 150
+                default_font_size.set("150")
+            else:
+                font_size_main = 60
+                default_font_size.set("60")
             # get a font
             fnt = ImageFont.truetype(font_main, font_size_main)
             # get a drawing context
@@ -226,6 +234,14 @@ opacity.grid(column=5, row=10, ipadx=20, sticky=E)
 font_label = Label(text="Font size:", bg="#000000", fg="#fafafa", font=("Arial", 12, "bold"))
 font_label.grid(column=4, row=11, sticky=W)
 default_font_size = StringVar(window)
+# if original_width > 2500:
+#     font_size_main = 250
+#     default_font_size.set("250")
+# elif original_width > 1500:
+#     font_size_main = 150
+#     default_font_size.set("150")
+# else:
+#     font_size_main = 60
 default_font_size.set("60")
 font_size = Spinbox(window, from_=1, to=1000, width=5, highlightthickness=0, textvariable=default_font_size,
                     command=font_size)
