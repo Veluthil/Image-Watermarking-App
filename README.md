@@ -37,4 +37,4 @@ Functionality
 - The "Save" button allows you to name your watermarked image and save it in the chosen file path - app automatically converts .jpg image file into RGB. 
 
 
-I will change this project into an OOP app to avoid using global variables.
+I plan to change this project into an OOP app to avoid using global variables.
