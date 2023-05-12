@@ -1,40 +1,35 @@
-# Image-Watermarking-App
-The app allows to add a custom watermark to the provided image file, then name it and save it to the chosen directory. 
+# Image Watermarking App
 
-This Python project uses Tkinter, Pillow and Matplotlib libraries to create GUI and all the features.
+The Image Watermarking App is a Python project that allows you to add a custom watermark to an image file and save it to the chosen directory. It uses Tkinter, Pillow, and Matplotlib libraries to create a GUI and implement all the features.
 
-GUI layout:
------
-![Screenshot 2023-02-10 175604](https://user-images.githubusercontent.com/108438343/218153810-81981fe6-6c76-42ef-9278-e2cc427edde8.png)
+## GUI Layout
 
-Image file selection:
------
-![Screenshot 2023-02-10 181129](https://user-images.githubusercontent.com/108438343/218153915-d8dfd35c-eab2-4229-8082-c0f101a1237a.png)
+The app's GUI consists of several components, including buttons, scales, spinboxes, and option menus, which allow you to adjust the watermark's position, rotation, font size, font type, opacity, and color. The layout is shown in the following image:
 
-Watermark text color selection:
------
-![Screenshot 2023-02-10 180525](https://user-images.githubusercontent.com/108438343/218153952-aaf0a595-eaa3-4bed-86c4-9adc9de6e254.png)
+![App Layout](https://user-images.githubusercontent.com/108438343/218153810-81981fe6-6c76-42ef-9278-e2cc427edde8.png)
 
-Font type selection:
------
-![Screenshot 2023-02-10 175732](https://user-images.githubusercontent.com/108438343/218154003-be9013b2-1978-4d89-a282-c2ee183500f5.png)
+## Image File Selection
 
-Saving process:
------
-![Screenshot 2023-02-10 180237](https://user-images.githubusercontent.com/108438343/218154068-513d9ec6-9b82-4bf2-911d-b73141c58e36.png)
+The "Select file" button opens a new window, where you can choose any of the jpeg, .jpg, .jpeg, png, .png, bitmap, bmp, gif, .gif files to load. Once the image is loaded, you can add your custom watermark to it.
 
------
+![File Selection](https://user-images.githubusercontent.com/108438343/218153915-d8dfd35c-eab2-4229-8082-c0f101a1237a.png)
 
-Functionality
-------
+## Watermark Customization
 
-- Buttons, Scale, Spinbox, and OptionMenu allow you to adjust the Watermark position, rotation, font size, font type, opacity, and color.
+The app allows you to customize the watermark by providing text that will get transformed into a custom watermark. You can adjust the watermark's position, rotation, font size, font type, opacity, and color using the various components in the GUI.
 
-- The "Select file" button opens a new window, where you can choose any of the jpeg, .jpg, .jpeg, png, .png, bitmap, bmp, gif, .gif files to load.
+![Watermark Customization](https://user-images.githubusercontent.com/108438343/218153952-aaf0a595-eaa3-4bed-86c4-9adc9de6e254.png)
 
-- The watermark label allows you to provide a text that will get transformed into a custom watermark that you can modify with all of the options given above.
+## Saving Process
 
-- The "Save" button allows you to name your watermarked image and save it in the chosen file path - app automatically converts .jpg image file into RGB. 
+Once you have customized your watermark, you can save the watermarked image by clicking the "Save" button. This allows you to name your watermarked image and save it in the chosen file path. The app automatically converts the image file into RGB before saving it.
 
+![Saving Process](https://user-images.githubusercontent.com/108438343/218154068-513d9ec6-9b82-4bf2-911d-b73141c58e36.png)
 
-I plan to change this project into an OOP app to avoid using global variables.
+## Dependencies
+
+The Image Watermarking App uses the following libraries:
+
+- Tkinter
+- Pillow
+- Matplotlib
