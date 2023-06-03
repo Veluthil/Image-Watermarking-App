@@ -26,6 +26,25 @@ Once you have customized your watermark, you can save the watermarked image by c
 
 ![Saving Process](https://user-images.githubusercontent.com/108438343/218154068-513d9ec6-9b82-4bf2-911d-b73141c58e36.png)
 
+## Installation
+1. Clone the repository: 
+```
+git clone https://github.com/Veluthil/Image-Watermarking-App.git
+```
+2. Change directory into the project folder
+3. Create virtual environment: 
+```
+py -m venv venv
+``` 
+```
+venv/Scripts/activate
+```
+4. Install the required packages: 
+```
+pip install -r requirements.txt
+```
+5. Run the `main.py`
+
 ## Dependencies
 
 The Image Watermarking App uses the following libraries:
